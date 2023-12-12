@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>S2: Alluvial</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../Images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../Images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Images/favicon-16x16.png">
+    <link rel="manifest" href="../Images/site.webmanifest">
+    <link rel="mask-icon" href="../Images/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../Images/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="../Images/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <script crossorigin="anonymous" src="https://d3js.org/d3.v5.min.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/d3-array@1"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/d3-collection@1"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/d3-path@1"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/d3-shape@1"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/d3-sankey@0"></script>
+</head>
+
+<body>
+  <h1> DATA VISUALIZATION: 5M TREES DATASET ANALYSIS </h1>
+  <h2> Arshia NavabAkbar & Tom Loree</h2> <hr>
+  <!-- Navigation bar -->
+  <div id="mySidenav" class="sidenav">
+    <script src="../JavaScript/generalScripts/navBar.js"></script>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="../index.html">1st Assignment</a>
+    <a href="Alluvial.html">2nd Assignment</a>
+    <a href="ridgeLine.html">3rd Assignment</a>
+    <a href="#">4th Assignment</a>
+  </div>
+  
+  <section>
+    <div class="header-container">
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+      <h3> Section 2: Comparing Categories (take 2) </h3>
+    </div>
+    <div class="topnav">
+      <a class="active" href="Alluvial.html"> Alluvial </a>
+    </div>
+    <br>
+      <p>
+        Here we selected only the <b>top 3 cities with most count of trees by state</b> and considered only the
+        <b>top 10 most common trees</b> in the dataset.
+        This allows the visualization to be more readable and to avoid
+        making it all across the page vertically. <br>
+        You can hover over any link to visualize the source, target and the count.
+      </p>
+      <h4>Count of State <span>&#8594;</span> City <span>&#8594;</span> Tree</h4>
+      <div id="my_dataviz"></div>
+      <script src="../JavaScript/alluvial.js"> </script>
+    </div>
+  </section>
+</body>
+</html>

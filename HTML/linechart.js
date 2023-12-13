@@ -48,12 +48,16 @@ svg.append("text")
     .text("Temperature (°C)")
     .style('font-size', '12px');
 
-document.getElementById("selectedYear").onchange = async function () {
-    svg.selectAll("#deleteHandle").remove();
-    await draw(this.value);
-};
+// document.getElementById("selectedYear").onchange = async function () {
+   // svg.selectAll("#deleteHandle").remove();
+ //   await draw(this.value);
+//};
 
-async function draw(year = '2022') {
+const colors = d3.scaleOrdinal(d3.schemeCategory10);
+
+async function draw() {
+    const years = ['1978','1983','1988','1993','1998','2003','2008','2013','2018','2022']
+    years.forEach(async year =>{
     let res = data.filter(e => {
         return e.year === year
     });
@@ -90,4 +94,7 @@ async function draw(year = '2022') {
         .attr("r", 7)
         .style("fill", '#7ae703')
         .attr('stroke', "black")
+    });
 }
+
+draw();

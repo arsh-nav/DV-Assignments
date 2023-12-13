@@ -143,7 +143,7 @@ for (var i = 0; i < dataset2.length; i ++){
     .attr("d",line)
     .attr("stroke-width", 3)
     .attr("stroke", color)
-    .attr("fill", color)
+    .attr("fill", "none")
     .attr("stroke-opacity", 1)
     .attr('class',dataset2[i]['Years'])
     .attr('data-value',dataset2[i]['Years'])

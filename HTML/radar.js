@@ -80,7 +80,7 @@ function angleToCoordinate(angle, value){
 let line = d3.line()
     .x(d => d.x)
     .y(d => d.y);
-let colors = ['#CC04CC','#D98E13','#05F133','#E5D998','#ACD913','#13D9A6','#1382D9','#D91313']
+let colors = ['#CC04CC','#D98E13','#05F133','#E5D998','#ACD913','#13D9A6','#1382D9','#D91313','#1F4E79','#6A0572']
 
 // The circle vlues(data values) and their shape are set here
 function getPathCoordinates(data_point){

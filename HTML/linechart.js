@@ -96,5 +96,4 @@ async function draw() {
         .attr('stroke', "black")
     });
 }
-
-draw();
+await draw();

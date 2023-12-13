@@ -66,7 +66,7 @@ async function draw() {
         .datum(res)
         .attr("id", "deleteHandle")
         .attr("fill", "none")
-        .attr("stroke", "#FF0A00")
+        .attr("stroke", colors(year))
         .attr("stroke-width", 4)
         .attr("d", d3.line()
             .x(d => x(d.month))
@@ -76,7 +76,7 @@ async function draw() {
         .datum(res)
         .attr("id", "deleteHandle")
         .attr("fill", "none")
-        .attr("stroke", "#e56e6b")
+        .attr("stroke", colors(year))
         .attr("stroke-width", 4)
         .attr("d", d3.line()
             .x(d => x(d.month))
@@ -92,7 +92,7 @@ async function draw() {
         .attr("cx", d => x(d.month))
         .attr("cy", d => y(d.mean))
         .attr("r", 7)
-        .style("fill", '#7ae703')
+        .style("fill", colors(year))
         .attr('stroke', "black")
     });
 }

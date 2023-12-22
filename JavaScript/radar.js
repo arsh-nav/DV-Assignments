@@ -1,4 +1,4 @@
-const dataset = await d3.csv("Assignment4_2.csv");
+const dataset = await d3.csv("../datasets/Assignment4_2.csv");
 const dataset2=[]
 var dataLength=0
 

@@ -17,7 +17,7 @@ let margin = { top: 20, right: 20, bottom: 30, left: 50 },
   width = 960 - margin.left - margin.right,
   height = 687 - margin.top - margin.bottom;
 
-const data = (await d3.csv("data.csv")).map((d) => {
+const data = (await d3.csv("../datasets/data.csv")).map((d) => {
   return {
     month: d.month,
     year: d.year,

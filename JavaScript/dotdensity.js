@@ -1,100 +1,104 @@
-// mapboxgl.accessToken = 'pk.eyJ1IjoiYXJzaGludiIsImEiOiJjbHFtanU1ZzYxdTlhMmtvMG9idjk2cGV5In0.Bn2P5-rKDQ7jvuZsn6Ahbw'; // Replace with your Mapbox Access Token
 
-// var map = new mapboxgl.Map({
-//     container: 'map',
-//     style: 'mapbox://styles/mapbox/streets-v11', // You can change the map style here
-//     center: [-96, 37.8], // Centered at the US
-//     zoom: 3 // Adjust the zoom level as needed
-//   });
-//  // Function to generate random points within a GeoJSON polygon using Turf.js
-// function generateRandomPointsWithinPolygon(count, polygon) {
-//     const points = [];
-  
-//     const bbox = turf.bbox(polygon);
-//     const bboxPolygon = turf.bboxPolygon(bbox);
-  
-//     for (let i = 0; i < count; i++) {
-//       let randomPoint = null;
-//       do {
-//         const randomLng = bbox[0] + Math.random() * (bbox[2] - bbox[0]);
-//         const randomLat = bbox[1] + Math.random() * (bbox[3] - bbox[1]);
-//         randomPoint = turf.point([randomLng, randomLat]);
-//       } while (!turf.booleanPointInPolygon(randomPoint, bboxPolygon));
-  
-//       points.push(randomPoint);
-//     }
-  
-//     return turf.featureCollection(points);
-//   }
-  
-  
-  
-  
-  // Use the generated GeoJSON data to add circles to the map
-//   var dotCount = 1000; // Number of dots
-//   var californiaPolygon = {
-//     type: 'Polygon',
-//     coordinates: [
-//       [
-//         [-124.482003, 32.528832],
-//         [-114.131211, 32.528832],
-//         [-114.131211, 42.009519],
-//         [-124.482003, 42.009519],
-//         [-124.482003, 32.528832]
-//       ]
-//     ]
-//   };
-  
-//   // Use the specified GeoJSON polygon for generating random points
-//   var boundingPolygon = californiaPolygon; // Replace with the desired state's polygon
-  
-//   // Generate random GeoJSON data with points within the specified polygon
-//   var geojsonData = generateRandomPointsWithinPolygon(dotCount, boundingPolygon);
-  
-//   map.on('load', function () {
-//     map.addSource('dots', {
-//       type: 'geojson',
-//       data: geojsonData
-//     });
-  
-//     map.addLayer({
-//       id: 'dots-layer',
-//       type: 'circle',
-//       source: 'dots',
-//       paint: {
-//         'circle-radius': 3,
-//         'circle-color': 'red'
-//       }
-//     });
-//   });
 // Set up the SVG container
-// var width = 800;
-// var height = 600;
+var width = 800;
+var height = 600;
 
-// var svg = d3.select('#map')
-//   .append('svg')
-//   .attr('width', width)
-//   .attr('height', height);
+var svg = d3.select('#map')
+  .append('svg')
+  .attr('width', width)
+  .attr('height', height);
 
-//   d3.json('../datasets/us-states.json').then(function(error,us) {
-//     // Load the CSV data
-//     if (error) throw error;
+fetch('../datasets/us-states.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(us => {
+    // Handle the loaded data here
+    createMap(us);
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
 
-//       // Create a color scale for common_name values
-//       var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
-  
-//       // Create projection and path for the map
-//       var projection = d3.geoAlbersUsa()
-//         .translate([width / 2, height / 2])
-//         .scale(1000);
-  
-//       var path = d3.geoPath().projection(projection);
-  
-//       // Bind data to the map and draw state boundaries
-//       svg.selectAll('path')
-//         .data(us.features)
-//         .enter().append('path')
-//         .attr('d', path)
-//         .style('fill', 'white')
-//         .style('stroke', 'lightgray');
-//   });
+function createMap(us) {
+  // Create a color scale for common_name values
+  var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+  // Create projection and path for the map
+  var projection = d3.geoAlbersUsa()
+    .translate([width / 2, height / 2])
+    .scale(1000);
+
+  var path = d3.geoPath().projection(projection);
+
+  // Bind data to the map and draw state boundaries
+  svg.selectAll('path')
+    .data(us.features)
+    .enter().append('path')
+    .attr('d', path)
+    .style('fill', 'white')
+    .style('stroke', 'lightgray');
+    fetch('../datasets/dd.csv')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.text();
+  })
+  .then(csvData => {
+    // Convert CSV data to an array of objects
+    const data = d3.csvParse(csvData);
+
+    // Handle the loaded data here
+    addDots(data);
+  })
+  .catch(error => {
+    console.error('There was a problem with the fetch operation:', error);
+  });
+
+function addDots(data) {
+  // Add dots for each row in the CSV
+  svg.selectAll('circle')
+    .data(data)
+    .enter().append('circle')
+    .attr('cx', function(d) {
+      return projection([+d.longitude_coordinate, +d.latitude_coordinate])[0];
+    })
+    .attr('cy', function(d) {
+      return projection([+d.longitude_coordinate, +d.latitude_coordinate])[1];
+    })
+    .attr('r', 1.5) // Adjust the radius as needed
+    .style('fill', function(d) {
+      return colorScale(d.common_name);
+    });
+
+  // Add legend
+  var legend = svg.selectAll('.legend')
+    .data(colorScale.domain())
+    .enter().append('g')
+    .attr('class', 'legend')
+    .attr('transform', function(d, i) {
+      return 'translate(0,' + i * 20 + ')';
+    });
+
+  legend.append('rect')
+    .attr('x', width - 18)
+    .attr('width', 18)
+    .attr('height', 18)
+    .style('fill', colorScale);
+
+  legend.append('text')
+    .attr('x', width - 24)
+    .attr('y', 9)
+    .attr('dy', '.35em')
+    .style('text-anchor', 'end')
+    .text(function(d) {
+      return d;
+    });
+}
+
+}
+

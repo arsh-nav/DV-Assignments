@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>S4: Maps</title>
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="180x180" href="../Images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../Images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Images/favicon-16x16.png">
+    <link rel="manifest" href="../Images/site.webmanifest">
+    <link rel="mask-icon" href="../Images/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../Images/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="../Images/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <script crossorigin="anonymous" src="https://d3js.org/d3.v4.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+  <style>
+    /* body { margin: 0; padding: 0; } */
+    body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    #map-container { position: relative; }
+    #map { position: absolute; top: 200px; bottom: 0; width: 100%; height: calc(100vh - 50px); }
+    /* Adjust the top and bottom values to accommodate your navbar's height */
+    /* You can also adjust the font styles, colors, etc., as needed */
+    .navbar { background-color: #333; color: #fff; padding: 10px; }
+  </style>
+    <link rel="stylesheet" href="../CSS/style.css">
+        <!-- Other meta tags and stylesheets -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      
+</head>
+
+<body>
+    <h1> DATA VISUALIZATION: 5M TREES DATASET ANALYSIS </h1>
+    <h2> Arshia NavabAkbar & Tom Lorée</h2>
+    <hr>
+    <!-- Navigation bar -->
+    <script src="../JavaScript/generalScripts/navBar.js"></script>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="../index.html">1st Assignment</a>
+        <a href="Alluvial.html">2nd Assignment</a>
+        <a href="RidgeLine.html">3rd Assignment</a>
+        <a href="DotDensity.html">4th Assignment</a>
+    </div>
+    <div class="header-container">
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+      <h3> Section 3: Maps </h3>
+  
+    
+        <p>
+            <a href="DotDensity.html" class="arrow-link">
+                <i class="fas fa-arrow-left"></i> DotMap
+              </a>
+        </p>
+      </div>
+    <div id="map">
+      <!-- This is where the scripts will be loaded -->
+    </div>
+  <div id="radio">
+    <input type="radio" id="optionA" name="data-type" value="Relevance" checked>
+    <label for="optionA">Relevance</label>
+    <input type="radio" id="optionB" name="data-type" value="Density">
+    <label for="optionB">Density</label>
+  </div>
+    <div id="content">
+      <!-- This is where the scripts will be loaded -->
+  </div>
+    <script>
+
+var currentMapScript = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+  loadRelevanceMap(); // Load relevance map by default
+
+  document.getElementById('optionA').addEventListener('change', function() {
+    loadRelevanceMap();
+  });
+
+  document.getElementById('optionB').addEventListener('change', function() {
+    loadDensityMap();
+  });
+});
+
+function clearMap() {
+  var mapContainer = document.getElementById('map');
+  var existingSvg = mapContainer.querySelector('svg');
+  if (existingSvg) {
+    mapContainer.removeChild(existingSvg);
+  }
+}
+
+function loadRelevanceMap() {
+  clearMap(); // Clear existing map if any
+  if (currentMapScript !== '../JavaScript/colorp.js') {
+    currentMapScript = '../JavaScript/colorp.js';
+    loadScript(currentMapScript);
+  }
+}
+
+function loadDensityMap() {
+  clearMap(); // Clear existing map if any
+  if (currentMapScript !== '../JavaScript/choropleth.js') {
+    currentMapScript = '../JavaScript/choropleth.js';
+    loadScript(currentMapScript);
+  }
+}
+
+function loadScript(scriptName) {
+  var script = document.createElement('script');
+  script.src = scriptName;
+
+  // Wait for the script to load before rendering the map
+  script.onload = function() {
+    var mapContainer = document.getElementById('map');
+    var existingSvg = mapContainer.querySelector('svg');
+
+    if (existingSvg) {
+      mapContainer.removeChild(existingSvg); // Remove existing SVG if it exists
+    }
+
+    // Create a new SVG element
+    var newSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    newSvg.setAttribute('width', '800');
+    newSvg.setAttribute('height', '600');
+
+    mapContainer.appendChild(newSvg); // Append the new SVG to the map container
+
+    // Your logic to render the map should be in the loaded script
+  };
+
+  document.head.appendChild(script);
+}
+
+
+    </script>
+
+</body>

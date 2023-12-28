@@ -16,17 +16,6 @@
 
 
     <script crossorigin="anonymous" src="https://d3js.org/d3.v4.js"></script>
-    <!-- <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-base.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-map.min.js"></script>
-    <script src="https://cdn.anychart.com/geodata/latest/custom/world/world.js"></script>
-
-    <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-data-adapter.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script> -->
-    <!-- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script> -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
-
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
   <style>
     /* body { margin: 0; padding: 0; } */
     body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
@@ -37,6 +26,9 @@
     .navbar { background-color: #333; color: #fff; padding: 10px; }
   </style>
     <link rel="stylesheet" href="../CSS/style.css">
+        <!-- Other meta tags and stylesheets -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      
 </head>
 
 <body>
@@ -53,14 +45,25 @@
         <a href="DotDensity.html">4th Assignment</a>
     </div>
 
-    <section>
+    <div>
         <div class="header-container">
             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
             <h3> Section 3: Maps </h3>
+            <div>
+                <p>
+                    <a href="Choropleth.html" class="arrow-link">
+                        choropleth <i class="fas fa-arrow-right"></i>
+                    </a>
+                </p>
+            </div>
+            <div>
+
+            </div>
         </div>
+        
         <div id="map">
             
             <script src="../JavaScript/dotdensity.js"></script>
         </div>
-    </section>
+    </div>
 </body>

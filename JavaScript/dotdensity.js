@@ -195,43 +195,43 @@ function addDots2(index = 0) {
     addDots2(index + 1);
   }, 10);
 }
-function addDots3() {
-  const maxAbundance = d3.max(data3, (d) => +d.tree_abundance);
+// function addDots3() {
+//   const maxAbundance = d3.max(data3, (d) => +d.tree_abundance);
 
-  const colorScale = d3
-    .scaleSequential(d3.interpolateRgb("white", "darkgreen"))
-    .domain([0, maxAbundance]);
+//   const colorScale = d3
+//     .scaleSequential(d3.interpolateRgb("white", "darkgreen"))
+//     .domain([0, maxAbundance]);
 
-  svg
-    .selectAll("path")
-    .style("fill", function (d) {
-      const stateName = d.properties.NAME;
-      const stateData = data3.find((item) => item.NAME === stateName);
-      if (stateData) {
-        return colorScale(+stateData.tree_abundance);
-      } else {
-        return "black";
-      }
-    })
-    .on("mouseover", function (event, d) {
-      const stateName = d.properties.NAME;
-      const stateData = data3.find((item) => item.NAME === stateName);
-      const stateSize = d.properties.CENSUSAREA;
-      if (stateData) {
-        const tooltip = d3
-          .select("#map")
-          .append("div")
-          .attr("class", "tooltip")
-          .style("opacity", 0);
+//   svg
+//     .selectAll("path")
+//     .style("fill", function (d) {
+//       const stateName = d.properties.NAME;
+//       const stateData = data3.find((item) => item.NAME === stateName);
+//       if (stateData) {
+//         return colorScale(+stateData.tree_abundance);
+//       } else {
+//         return "black";
+//       }
+//     })
+//     .on("mouseover", function (event, d) {
+//       const stateName = d.properties.NAME;
+//       const stateData = data3.find((item) => item.NAME === stateName);
+//       const stateSize = d.properties.CENSUSAREA;
+//       if (stateData) {
+//         const tooltip = d3
+//           .select("#map")
+//           .append("div")
+//           .attr("class", "tooltip")
+//           .style("opacity", 0);
 
-        tooltip.transition().duration(200).style("opacity", 0.9);
-        tooltip
-          .html(`Trees: ${stateData.tree_abundance}<br>Area: ${stateSize}`)
-          .style("left", event.pageX + "px")
-          .style("top", event.pageY - 28 + "px");
-      }
-    })
-    .on("mouseout", function () {
-      d3.select(".tooltip").remove();
-    });
+//         tooltip.transition().duration(200).style("opacity", 0.9);
+//         tooltip
+//           .html(`Trees: ${stateData.tree_abundance}<br>Area: ${stateSize}`)
+//           .style("left", event.pageX + "px")
+//           .style("top", event.pageY - 28 + "px");
+//       }
+//     })
+//     .on("mouseout", function () {
+//       d3.select(".tooltip").remove();
+//     });
 }
